@@ -1,13 +1,15 @@
 <script setup>
 import { ref } from 'vue';
 import { useToast } from "vue-toastification";
+import { useTransactionStore } from '../stores/transactionStore';
+
+const transactionStore = useTransactionStore();
 
 const toast = useToast();
 
-const emit = defineEmits(['transactionSubmitted']);
-
 const text = ref('');
 const amount = ref('');
+
 const onSubmit = () => {
   if (!text.value || !amount.value) {
     toast.error('Both fields are required!');
@@ -17,7 +19,8 @@ const onSubmit = () => {
     text: text.value,
     amount: parseFloat(amount.value)
   }
-  emit('transactionSubmitted', formData);
+
+  transactionStore.handleTransactionSubmitted(formData);
   text.value = '';
   amount.value = '';
 }

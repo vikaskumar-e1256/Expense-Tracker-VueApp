@@ -1,17 +1,12 @@
 <script setup>
-import { defineProps } from 'vue';
+import { useTransactionStore } from '../stores/transactionStore';
 
-defineProps({
-    total: {
-        required: true,
-        type: Number
-    }
-})
+const transactionStore = useTransactionStore();
 </script>
 
 <template>
     <h4>Your Balance</h4>
-    <h1 id="balance">${{ total }}</h1>
+    <h1 id="balance">${{ transactionStore.total }}</h1>
 </template>
 
 <style scoped>

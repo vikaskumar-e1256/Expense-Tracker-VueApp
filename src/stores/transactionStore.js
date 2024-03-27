@@ -9,6 +9,10 @@ export const useTransactionStore = defineStore('transactions', () => {
 
     const transactions = ref([]);
 
+    const localStorageData = localStorage.getItem('transactions');
+    if (localStorageData) {
+        transactions.value = JSON.parse(localStorageData);
+    }
     const total = computed(() => (
         transactions.value.reduce(function (result, item) {
             return result + item.amount;
